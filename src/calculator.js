@@ -8,6 +8,9 @@
  * - Subtraction (-)
  * - Multiplication (*)
  * - Division (/)
+ * - Modulo (%)
+ * - Exponentiation (**)
+ * - Square Root (√)
  * 
  * Usage: node calculator.js <number1> <operation> <number2>
  * Example: node calculator.js 10 + 5
@@ -36,6 +39,27 @@ function divide(a, b) {
   return a / b;
 }
 
+// Modulo operation
+function modulo(a, b) {
+  if (b === 0) {
+    throw new Error('Cannot perform modulo by zero');
+  }
+  return a % b;
+}
+
+// Exponentiation operation
+function power(base, exponent) {
+  return Math.pow(base, exponent);
+}
+
+// Square root operation
+function squareRoot(n) {
+  if (n < 0) {
+    throw new Error('Cannot calculate square root of negative number');
+  }
+  return Math.sqrt(n);
+}
+
 // Main calculator function that handles operations
 function calculate(num1, operation, num2) {
   switch (operation) {
@@ -47,12 +71,18 @@ function calculate(num1, operation, num2) {
       return multiply(num1, num2);
     case '/':
       return divide(num1, num2);
+    case '%':
+      return modulo(num1, num2);
+    case '**':
+      return power(num1, num2);
+    case '√':
+      return squareRoot(num1);
     default:
       throw new Error(`Unknown operation '${operation}'`);
   }
 }
 
-module.exports = { add, subtract, multiply, divide, calculate };
+module.exports = { add, subtract, multiply, divide, modulo, power, squareRoot, calculate };
 
 // CLI execution
 if (require.main === module) {
@@ -60,7 +90,7 @@ if (require.main === module) {
 
   if (args.length !== 3) {
     console.error('Usage: calculator <number1> <operation> <number2>');
-    console.error('Operations: +, -, *, /');
+    console.error('Operations: +, -, *, /, %, **, √');
     console.error('Example: calculator 10 + 5');
     process.exit(1);
   }
